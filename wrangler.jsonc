@@ -1,0 +1,14 @@
+{
+  // main (Worker スクリプト) を持たない、静的アセットのみの Worker。
+  // 静的アセットへのリクエストは Workers のリクエスト数にカウントされない。
+  // https://developers.cloudflare.com/workers/static-assets/
+  "name": "x-mock",
+  "compatibility_date": "2025-07-01",
+  "assets": {
+    "directory": "./public",
+    // /posts で /posts.html、/@<name_id> で /@<name_id>.html を返す
+    "html_handling": "auto-trailing-slash",
+    // 存在しないパスは public/404.html を 404 で返す
+    "not_found_handling": "404-page"
+  }
+}
