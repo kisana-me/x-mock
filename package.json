@@ -1,0 +1,13 @@
+{
+  "name": "x-mock",
+  "private": true,
+  "description": "得句巣 の静的モック (Cloudflare Workers の静的アセットとして配信)",
+  "scripts": {
+    "build": "node tools/build.mjs",
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.115.0"
+  }
+}
