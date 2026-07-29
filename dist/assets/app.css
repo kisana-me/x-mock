@@ -1,0 +1,228 @@
+/* ============================================================
+   得句巣 モック版スタイル
+   本体アプリ (kisana-me/x) の app/assets/stylesheets を
+   必要最低限だけ流用し、末尾にモック専用の追加分を置く。
+   ============================================================ */
+
+/* ---------- application.css ---------- */
+
+html {
+  overflow-y: scroll;
+  background-color: #eee;
+}
+body {
+  margin: 0;
+}
+header {
+  height: 50px;
+  display: flex;
+  border-bottom: 1px solid #000;
+  box-sizing: border-box;
+}
+.h-left {
+  line-height: 40px;
+  font-size: 22px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 10px;
+  flex-shrink: 0;
+}
+.h-left a {
+  color: #ff6129;
+  text-decoration: none;
+}
+.h-right {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin: 0 10px 0 auto;
+}
+main {
+  min-height: calc(100svh - 150px);
+  padding: 10px;
+  box-sizing: border-box;
+  max-width: 800px;
+}
+footer {
+  height: 100px;
+  border-top: 1px solid #000;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+.f-top a {
+  line-height: 32px;
+  font-size: 20px;
+  color: #ff6129;
+  text-decoration: none;
+}
+
+/* ---------- post.css ---------- */
+
+.post {
+  border-bottom: 1px solid #000;
+  padding: 7px;
+  box-sizing: border-box;
+}
+.post-account {
+  font-size: 15px;
+  font-weight: bold;
+}
+.post-account a {
+  text-decoration: none;
+  color: inherit;
+}
+.post-info {
+  font-size: 12px;
+  display: flex;
+  justify-content: space-between;
+}
+.post-info a {
+  text-decoration: none;
+  color: inherit;
+}
+.post-console form {
+  display: inline-block;
+}
+
+.post-button {
+  background: #ffffff;
+  color: #000;
+}
+.post-reacted {
+  background: #afffd3;
+}
+
+/* ---------- account.css ---------- */
+
+.account {
+  border-bottom: 1px solid #000;
+  padding: 7px;
+  box-sizing: border-box;
+  margin: 5px 0;
+}
+.account-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* ---------- flash.css ---------- */
+
+.flash {
+  min-width: 200px;
+  max-width: 94vw;
+  position: fixed;
+  top: 1rem;
+  left: 50%;
+  padding: 1rem 1.5rem;
+  border-radius: 0.5rem;
+  transform: translateX(-50%);
+  background: #333;
+  color: white;
+  overflow: hidden;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  transition: opacity 0.3s;
+  animation: flash-hide 3s forwards;
+}
+.flash-button {
+  border: none;
+  top: 50%;
+  right: 0.5rem;
+  position: absolute;
+  background: none;
+  color: #aaa;
+  font-size: 1.25rem;
+  transform: translateY(-50%);
+  line-height: 1;
+  cursor: pointer;
+}
+.flash-bar {
+  width: 100%;
+  height: 4px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background: #525252;
+  transform-origin: left;
+  transform: scaleX(1);
+  animation: flash-bar 3s linear forwards;
+}
+.flash.notice .flash-bar {
+  background: #4ade80;
+}
+.flash.alert .flash-bar {
+  background: #f34f4f;
+}
+
+/* 3秒で透明になるアニメーション */
+@keyframes flash-hide {
+  0% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* 3秒でバーが左→右に縮む */
+@keyframes flash-bar {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+/* ============================================================
+   ここからモック専用の追加分
+   ============================================================ */
+
+/* サービス終了告知 (トップページ) */
+.ended {
+  border: 2px solid #f34f4f;
+  border-radius: 7px;
+  padding: 10px 15px;
+  margin: 15px 0;
+  box-sizing: border-box;
+  max-width: 400px;
+}
+.ended h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  color: #f34f4f;
+}
+.ended p {
+  margin: 0 0 5px;
+  font-size: 14px;
+}
+.ended p:last-child {
+  margin-bottom: 0;
+}
+
+/* トースト内のリンク */
+.flash a {
+  color: #ff9f6b;
+}
+/* リンクを押せるよう、指を乗せている間は自動消滅を止める */
+.flash:hover,
+.flash:focus-within {
+  animation-play-state: paused;
+}
+.flash:hover .flash-bar,
+.flash:focus-within .flash-bar {
+  animation-play-state: paused;
+}
+
+/* 返信を畳む details (投稿一覧) */
+.post-replies {
+  border-bottom: 1px solid #000;
+}
+.post-replies > summary {
+  padding: 7px;
+  font-size: 12px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.post-replies .post {
+  padding-left: 21px;
+}
+.post-replies .post:last-child {
+  border-bottom: none;
+}
