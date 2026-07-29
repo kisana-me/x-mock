@@ -49,9 +49,9 @@ HTML / CSS は得句巣本体の ERB とスタイルシートをそのまま静�
 - 404 ページのみ `noindex, nofollow, noarchive` (本体は全ページ `index follow`)
 - `og:image` / `og:url` は `data/site.json` の `origin` を使った絶対 URL
   (本体は `request.base_url` から組み立てている)
-- csrf/csp メタタグと importmap は省略。GA4 は `data/site.json` の `ga4_id` を
-  入れると本体と同じタグが全ページに入ります (本体は production のみ、ID は環境変数)。
-  **現在は `null` なので GA4 タグは出ていません。**
+- csrf/csp メタタグと importmap は省略。GA4 は本体と同じタグが全ページに入ります
+  (本体は production のみ)。ID は `data/site.json` の `ga4_id` から差し込んでいて、
+  本番 (x.amiverse.net) と同じ `G-5MW7M77S9F` です
 - サインアウト時の表示だけを出しているため、投稿削除ボタン・自分の反応の
   ハイライト (`post-reacted`)・口座の各種手続リンクは存在しません
 - CSS は `application.css` / `post.css` / `account.css` から必要な分だけを写し、
@@ -91,8 +91,13 @@ phpMyAdmin で JSON エクスポートしたものです。
 
 このエクスポートには `accounts.status` / `accounts.visibility` / `posts.status` の
 カラムが含まれていないため、本体の `from_normal_account` / `from_opened_account` /
-`is_normal` に相当する絞り込みは `tools/build.mjs` では行っておらず、
-**エクスポート時点で絞り込み済みである前提**で全行を描画しています。
+`is_normal` に相当する絞り込みは `tools/build.mjs` では行わず、全行を描画しています。
+
+これで問題ないことは本番と突き合わせて確認済みです。サービス終了前に
+`https://x.amiverse.net/posts` を `/posts/load?offset=<aid>` で最後まで辿り、
+公開されている投稿の aid を集めたところ 63 件で、エクスポートの 63 件と
+**過不足なく一致**しました (エクスポート側にのみ存在する投稿は無し)。
+口座も、投稿がある 19 件はすべて本番で公開されていました。
 
 ## Cloudflare へのデプロイ
 
